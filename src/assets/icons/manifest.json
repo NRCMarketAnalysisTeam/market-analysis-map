@@ -1,0 +1,230 @@
+[
+  {
+    "file": "image3.svg",
+    "id": "market",
+    "label": "Market",
+    "category": "common"
+  },
+  {
+    "file": "image7.svg",
+    "id": "source-market",
+    "label": "Source market",
+    "category": "common"
+  },
+  {
+    "file": "image4.svg",
+    "id": "people-in-need",
+    "label": "People in need",
+    "category": "common"
+  },
+  {
+    "file": "image37.svg",
+    "id": "damaged-affected",
+    "label": "Damaged/affected",
+    "category": "common"
+  },
+  {
+    "file": "image14.svg",
+    "id": "affected-population",
+    "label": "Affected population",
+    "category": "disasters"
+  },
+  {
+    "file": "image11.svg",
+    "id": "conflict",
+    "label": "Conflict",
+    "category": "disasters"
+  },
+  {
+    "file": "image12.svg",
+    "id": "fire",
+    "label": "Fire",
+    "category": "disasters"
+  },
+  {
+    "file": "image13.svg",
+    "id": "flood",
+    "label": "Flood",
+    "category": "disasters"
+  },
+  {
+    "file": "image10.svg",
+    "id": "heavy-rain",
+    "label": "Heavy rain",
+    "category": "disasters"
+  },
+  {
+    "file": "image15.svg",
+    "id": "people-targeted",
+    "label": "People targeted",
+    "category": "disasters"
+  },
+  {
+    "file": "image16.svg",
+    "id": "rebel",
+    "label": "Rebel",
+    "category": "disasters"
+  },
+  {
+    "file": "image9.svg",
+    "id": "internally-displaced",
+    "label": "Internally displaced",
+    "category": "disasters"
+  },
+  {
+    "file": "image29.svg",
+    "id": "border-crossing",
+    "label": "Border crossing",
+    "category": "barriers"
+  },
+  {
+    "file": "image30.svg",
+    "id": "checkpoint",
+    "label": "Checkpoint",
+    "category": "barriers"
+  },
+  {
+    "file": "image31.svg",
+    "id": "earthmound",
+    "label": "Earthmound",
+    "category": "barriers"
+  },
+  {
+    "file": "image32.svg",
+    "id": "military-gate",
+    "label": "Military gate",
+    "category": "barriers"
+  },
+  {
+    "file": "image33.svg",
+    "id": "observation-tower",
+    "label": "Observation tower",
+    "category": "barriers"
+  },
+  {
+    "file": "image34.svg",
+    "id": "roadblock",
+    "label": "Roadblock",
+    "category": "barriers"
+  },
+  {
+    "file": "image35.svg",
+    "id": "road-barrier",
+    "label": "Road barrier",
+    "category": "barriers"
+  },
+  {
+    "file": "image36.svg",
+    "id": "physical-closure",
+    "label": "Physical closure",
+    "category": "barriers"
+  },
+  {
+    "file": "image17.svg",
+    "id": "idp-refugee-camp",
+    "label": "IDP/refugee camp",
+    "category": "camp"
+  },
+  {
+    "file": "image18.svg",
+    "id": "permanent-camp",
+    "label": "Permanent camp",
+    "category": "camp"
+  },
+  {
+    "file": "image19.svg",
+    "id": "temporary-camp",
+    "label": "Temporary camp",
+    "category": "camp"
+  },
+  {
+    "file": "image41.svg",
+    "id": "location",
+    "label": "Location",
+    "category": "camp"
+  },
+  {
+    "file": "image39.svg",
+    "id": "government-office",
+    "label": "Government office",
+    "category": "camp"
+  },
+  {
+    "file": "image40.svg",
+    "id": "food-warehouse",
+    "label": "Food warehouse",
+    "category": "camp"
+  },
+  {
+    "file": "image38.svg",
+    "id": "police-station",
+    "label": "Police station",
+    "category": "camp"
+  },
+  {
+    "file": "image42.svg",
+    "id": "cell-tower",
+    "label": "Cell tower",
+    "category": "camp"
+  },
+  {
+    "file": "image43.svg",
+    "id": "internet",
+    "label": "Internet",
+    "category": "camp"
+  },
+  {
+    "file": "image20.svg",
+    "id": "attack",
+    "label": "Attack",
+    "category": "security"
+  },
+  {
+    "file": "image21.svg",
+    "id": "carjacking",
+    "label": "Carjacking",
+    "category": "security"
+  },
+  {
+    "file": "image22.svg",
+    "id": "dangerous-area",
+    "label": "Dangerous area",
+    "category": "security"
+  },
+  {
+    "file": "image23.svg",
+    "id": "mine",
+    "label": "Mine",
+    "category": "security"
+  },
+  {
+    "file": "image24.svg",
+    "id": "robbery",
+    "label": "Robbery",
+    "category": "security"
+  },
+  {
+    "file": "image25.svg",
+    "id": "border-closed",
+    "label": "Border closed",
+    "category": "security"
+  },
+  {
+    "file": "image26.svg",
+    "id": "bridge-closed",
+    "label": "Bridge closed",
+    "category": "security"
+  },
+  {
+    "file": "image27.svg",
+    "id": "market-closed",
+    "label": "Market closed",
+    "category": "security"
+  },
+  {
+    "file": "image28.svg",
+    "id": "road-closed",
+    "label": "Road closed",
+    "category": "security"
+  }
+]
