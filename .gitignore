@@ -1,0 +1,28 @@
+# Installed packages and build output
+node_modules/
+dist/
+
+# Secrets and local settings. Never commit real keys.
+.env
+.env.*
+!.env.example
+
+# Test output
+generated-artifacts/
+test-results/
+playwright-report/
+
+# Editor and system files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+
+# Hosting platform files (each host makes its own)
+.replit
+replit.nix
+.replitignore
+.config/
+.agents/
+attached_assets/
