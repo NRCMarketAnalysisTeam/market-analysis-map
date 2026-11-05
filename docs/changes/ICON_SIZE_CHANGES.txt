@@ -1,0 +1,57 @@
+ICON SIZE FOLLOWS THE MAP ZOOM (November 2026)
+
+Feedback: when colleagues zoom out to fit far-away source markets, every icon
+stays the same size on screen, so one icon covers an area the size of a state
+and nearby markets pile on top of each other.
+
+What changed
+1. Icons now get smaller as you zoom out (Auto, on by default).
+   - Full size at zoom 12 (town or district) and closer.
+   - About 12% smaller for each zoom level further out.
+   - Never below 40% of full size, so they stay visible.
+   - The functionality circles around markets, the MP/SM code labels,
+     text labels and supply lines shrink with them. Labels and lines shrink
+     less than icons so they stay readable and easy to click.
+2. New "Icon size" box on the map, under the + and - zoom buttons:
+   - minus / plus make everything smaller or bigger (50% to 200%)
+   - the percentage shows the size icons are drawn at right now; click it
+     to go back to normal
+   - Auto switches the zoom-based shrinking on or off
+   The box is not printed in the downloaded PNG. The PNG uses the size you see.
+3. Standalone circles keep the size the person dragged them to, scaled the
+   same way as everything else.
+4. New help section "Change the icon size" in English, Spanish, French and
+   Arabic (the guide now has ten sections).
+
+Files
+- src/iconScale.js (new): the sizing rules
+- src/components/IconSizeControl.jsx (new): the Icon size box
+- src/store.js: mapZoom, iconSizeUser, iconAutoSize and their actions;
+  useIconScale()
+- src/components/MapCanvas.jsx: icons, labels, circles and lines use the scale;
+  ZoomWatcher keeps the zoom in the store
+- src/components/ResizableCircleMarker.jsx, DrawingLayer.jsx: scaled circles
+- src/components/DistanceList.jsx: leaves room for the new box
+- src/export.js: the box is left out of the PNG
+- src/styles/app.css, src/i18n/translations.js, src/components/HelpOverlay.jsx
+- tests/icon-scale.test.mjs (new, 7 tests); help test updated to ten sections
+
+Tests: 19 unit tests and 13 browser tests pass.
+
+
+UPDATE 2 (4 November 2026, after first test on the live site)
+1. The Icon size control moved from the map into the top toolbar, next to
+   Lock map, so it no longer sits on the map. Same buttons: - , percentage,
+   + , Auto. Auto is still on by default.
+2. Fixed: the MP/SM code label stayed where it was first drawn. When a
+   functionality circle was added later, or the zoom changed the size, the
+   circle ended up around the label instead of around the icon. The label
+   is now re-placed every time, so the circle always goes around the icon
+   and the label sits just below the circle.
+3. Code labels are a little bigger (9 px instead of 8.25 px) and no longer
+   shrink when you zoom out, so they stay readable on a country map.
+4. The language list in the toolbar is a little narrower, so the whole
+   toolbar fits on one line on a 1280 px laptop screen.
+5. Help text updated to say where the control is now (4 languages).
+
+Tests: 19 unit tests and 13 browser tests pass.

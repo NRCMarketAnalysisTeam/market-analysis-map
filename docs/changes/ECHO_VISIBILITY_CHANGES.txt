@@ -1,0 +1,63 @@
+DG ECHO visibility updates, 20 October 2026
+============================================
+
+These changes bring the site in line with DG ECHO's communication and
+visibility rules for EU-funded projects. All are already made in this
+project. The dist folder has been rebuilt and all 9 unit tests pass.
+
+Please keep these changes. Do not redraw the EU emblem, do not change the
+funding or disclaimer wording, and do not add any other EU or ECHO logo.
+
+FILES CHANGED
+1. public/brand/eu/ (new folder)
+   The official "Funded by the European Union" emblem files (colour and
+   negative), converted from the European Commission's EPS files. Shapes are
+   untouched; colours set to the official screen values #003399 and #FFCC00
+   because the supplied EPS is the print (CMYK) version.
+2. src/components/EuEmblem.jsx
+   Now shows the official emblem file instead of a drawn version, and links
+   to DG ECHO's website (https://civil-protection-humanitarian-aid.ec.europa.eu/).
+   Languages without an official file show the English official file.
+   The drawn flag is kept only as a fallback if the file fails to load.
+3. src/components/LandingPage.jsx
+   Header emblem raised to 40 px (same as the NRC logo), divider line next to
+   the emblem removed, and a second link "About EU humanitarian aid" added in
+   the About section.
+4. src/App.jsx
+   EU emblem added to the bottom bar of the map editor (outside the export
+   frame, so it never appears on downloaded maps).
+5. src/styles/app.css
+   NRC logo raised to 40 px, 40 px clear space between the two logos, no
+   underline on the emblem, phone layout keeps both logos at 38 px (the EU
+   1 cm minimum) on one line, spacing for the two About links.
+6. src/i18n/translations.js (all four languages)
+   About text now says the project is implemented by NRC "in partnership with
+   the European Union, which funds the project through its humanitarian aid"
+   instead of "funded by European Union Humanitarian Aid". New key aboutEuLink.
+7. src/i18n/legal.js (all four languages)
+   Same funding wording in the Terms of use introduction. "Boundaries and
+   names" clause now also says maps do not imply acceptance by the European
+   Union. The EU funding section now starts with the official disclaimer
+   wording "Funded by the European Union." LAST_UPDATED set to 2026-10-20.
+8. index.html
+   Search engine description now says "with funding from the European Union".
+9. README.md and public/brand/eu/README.txt
+   Short notes on the EU visibility rules so future changes keep them.
+10. src/i18n/legal.js, Privacy (all four languages)
+   The privacy notice no longer says "no analytics" or "no cookies". It now
+   has a "Visitor counts" section: what is counted (visits, edition,
+   language, item type added, map downloads), what is never recorded (map
+   content, searches, titles, labels, place names), that counting is done by
+   Replit's built-in analytics, which processes technical data under
+   Replit's own privacy policy, and that totals are reported, including to
+   the EU. It makes no cookie claim, because cookie use is not yet verified.
+   The "Map background, fonts and hosting" section now names the one cookie
+   found on the live site (GAESA, a Google Cloud load-balancing cookie set
+   by the hosting layer, strictly necessary).
+   Do NOT switch on analytics until NRC confirms. When it is switched on,
+   repeat the cookie check: if any cookie other than GAESA appears, switch
+   analytics off again and report it.
+
+11. src/i18n/legal.js, Terms of use, "Your maps are your responsibility"
+   (all four languages): the liability sentence now names the European
+   Union alongside NRC and the project team.

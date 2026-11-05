@@ -1,0 +1,83 @@
+/*
+  NRC brand tokens, pulled from the NRC Brand Book.
+  Rule from the brand book: tints are not allowed for primary NRC colours;
+  the four secondary colours should be used sparingly (status/legend use only).
+*/
+:root {
+  /* Primary */
+  --nrc-orange: #fd5a00;
+
+  /* Neutrals */
+  --nrc-white: #ffffff;
+  --nrc-black: #000000;
+  --nrc-sand: #eae7dd; /* good for text boxes and maps, per brand book */
+  --nrc-grey-light: #f2f2f2;
+  --nrc-grey-mid: #8a8a8a;
+  --nrc-grey-dark: #333333;
+
+  /* Secondary (sparing use — legend/status only) */
+  --nrc-blue: #00add0;
+  --nrc-green: #47914a;
+  --nrc-yellow: #fdc82f;
+  --nrc-red: #ce5c43;
+
+  /* Edition colours. The app's CSS uses these three "brand" tokens instead
+     of the NRC colours directly, so the humanitarian edition can swap them
+     in one place (see [data-edition="humanitarian"] below). */
+  --brand-primary: var(--nrc-orange);
+  --brand-surface: var(--nrc-sand);
+  --brand-tint: #fff2ea;
+
+  /* Typography */
+  --font-primary: "Roboto", "Noto Sans", sans-serif;
+  --font-secondary: "Noto Serif", serif;
+
+  /* Layout */
+  --radius: 6px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-primary);
+  color: var(--nrc-black);
+}
+
+/* Prevent the whole page from scrolling — every panel (sidebar, map,
+   toolbar) manages its own internal scroll instead. Without this, a long
+   icon list or a tall modal can grow the page itself rather than just the
+   panel it belongs to. */
+html,
+body {
+  overflow: hidden;
+}
+
+/* LanguageProvider (src/i18n/LanguageContext.jsx) wraps the whole app in
+   this div so it can set dir="rtl"/lang on a single element. Without an
+   explicit height here, it breaks the height:100% chain from #root down to
+   .app — its default auto height would let the page grow to fit content
+   instead of staying locked to the viewport. */
+.i18n-root {
+  height: 100%;
+}
+
+button {
+  font-family: var(--font-primary);
+  cursor: pointer;
+}
+
+/* Humanitarian edition: neutral styling with UN blue, the colour of the
+   official OCHA Humanitarian Icons (#009EDB). Only colour changes; layout,
+   features and the green/yellow/red functionality colours stay the same. */
+[data-edition="humanitarian"] {
+  --brand-primary: #009edb;
+  --brand-surface: #edf2f7;
+  --brand-tint: #e5f5fc;
+}

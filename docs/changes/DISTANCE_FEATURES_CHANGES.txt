@@ -1,0 +1,55 @@
+Distance and supply link features, October 2026
+===============================================
+
+This version contains everything in ECHO_VISIBILITY_CHANGES.txt (keep all
+of that exactly as it is), plus these new features. All unit tests (12) and
+browser tests (13) pass, and dist has been rebuilt.
+
+1. Supply lines now measure distance, like Google Maps' measure tool
+   - White dot at each click, dashed line following the mouse, running km
+     label next to the mouse.
+   - Points snap to icons (highlight ring shows the icon code).
+   - Start on a source market, click along the road, click the marketplace:
+     the line finishes by itself, the two markets are linked and the
+     distance is filled in.
+   - Also finishes by clicking the last point again, double-clicking or
+     pressing Enter. Backspace or "Undo point" removes the last point.
+   - Click a finished line to see its link and length; drag its white dots
+     to adjust the route.
+   New file: src/components/DrawingLayer.jsx, src/geo.js
+   Changed: src/components/MapCanvas.jsx, src/components/StatusBanner.jsx,
+   src/store.js
+
+2. Many source markets to many marketplaces
+   - Marketplace form: "Supplied by" checklist of source markets, each with
+     a distance field (filled from the supply line if one was drawn).
+   - Source market form: "Supplies" checklist of marketplaces.
+   - Distance box lists every source market to marketplace pair
+     (e.g. "SM1 -> MP1  45.2 km"), grouped by marketplace, plus any source
+     market not yet linked.
+   Changed: src/components/MarkerEditModal.jsx, src/components/DistanceList.jsx,
+   src/store.js
+
+3. Measure tool (new "Measure" button in the toolbar)
+   - Measures any path. If it starts or ends on a marketplace, the result
+     can be saved as that marketplace's distance from the target population,
+     or as a source market to marketplace distance.
+   - The measuring line is never printed.
+   Changed: src/components/Toolbar.jsx, src/components/StatusBanner.jsx
+
+4. Legend and distance box never hide rows
+   - They grow to the full map height, then continue in a second column.
+     Before, they stopped at 45% of the map height and rows were cut off
+     in the downloaded PNG.
+   New file: src/useOverlayColumns.js
+   Changed: src/components/Legend.jsx, src/components/DistanceList.jsx,
+   src/styles/app.css, src/export.js
+
+5. Text and help
+   - All new text in English, Spanish, French and Arabic
+     (src/i18n/translations.js). Arabic shows mixed text such as
+     "62 km, gravel road" the right way round.
+   - Help guide: updated "Draw a supply line" and "Edit market details",
+     new section "Measure a distance" (now 9 sections; test updated).
+   - README.md: new section "Distances, supply links and the Measure tool".
+   - New test: tests/links.test.mjs.

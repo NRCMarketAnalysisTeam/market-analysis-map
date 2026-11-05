@@ -1,0 +1,26 @@
+MOVE FROM REPLIT TO GITHUB PAGES (5 November 2026)
+
+Why: to stop using Replit. GitHub Pages hosts static websites only, so the
+small server was removed.
+
+What changed
+1. The server (server/index.js) is removed. Its only job was to add the
+   CARTO key to map tile requests. The browser now loads the tiles straight
+   from CARTO, and the key is added when the site is built, from the GitHub
+   secret CARTO_BASEMAP_KEY.
+2. express, cors and concurrently are no longer needed. All other package
+   versions are unchanged.
+3. Vite builds with relative links (base "./"), so the same build works at
+   marketanalysismap.com and at <account>.github.io/market-analysis-map/.
+   Logo and EU emblem paths use BASE_URL for the same reason.
+4. New .github/workflows/deploy.yml: on every change to main it installs,
+   runs the 19 unit tests, builds and publishes to GitHub Pages.
+5. Privacy text (4 languages): the hosting section now says the browser
+   loads the map from CARTO (so CARTO sees the IP address), the site is
+   hosted on GitHub Pages, and the tool does not use cookies for tracking or
+   advertising. The Replit and GAESA wording is removed. The visitor counts
+   section now says there is no analytics. LAST_UPDATED is 2026-11-05.
+6. Browser tests now intercept the CARTO address instead of /tiles.
+
+Tests: 19 unit tests and 13 browser tests pass. Built site tested from a
+sub-folder address: landing page, logos, map and PNG download all work.

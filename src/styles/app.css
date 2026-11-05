@@ -1,0 +1,1660 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ---------- Topbar ----------
+   min-height (not a fixed height) so stacked tool-groups (label above
+   swatches, added to save horizontal width) have room to grow vertically
+   without clipping. */
+.topbar {
+  min-height: 44px;
+  background: var(--nrc-white);
+  border-bottom: 2px solid var(--brand-primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 14px;
+  flex-shrink: 0;
+}
+
+.topbar-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.divider {
+  width: 1px;
+  height: 30px;
+  background: var(--nrc-grey-light);
+  margin: 0 2px;
+  flex-shrink: 0;
+}
+
+.tool-btn {
+  background: var(--nrc-white);
+  border: 1px solid var(--nrc-grey-light);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--nrc-black);
+  white-space: nowrap;
+}
+.tool-btn:hover {
+  border-color: var(--brand-primary);
+}
+.tool-btn--active {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: var(--nrc-white);
+}
+.tool-btn--primary {
+  background: var(--brand-primary);
+  color: var(--nrc-white);
+  border-color: var(--brand-primary);
+}
+.tool-btn--primary:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.tool-btn--danger {
+  background: var(--nrc-white);
+  border-color: var(--nrc-red);
+  color: var(--nrc-red);
+}
+.tool-btn--danger:hover {
+  background: var(--nrc-red);
+  color: var(--nrc-white);
+}
+
+.tool-btn--small {
+  padding: 5px 10px;
+  font-size: 11px;
+}
+
+/* ---------- In-app field guide ---------- */
+.help-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(35, 35, 32, 0.48);
+}
+
+.help-panel {
+  width: min(900px, 100%);
+  max-height: min(760px, 92dvh);
+  overflow-y: auto;
+  padding: 28px 30px 24px;
+  background: var(--nrc-white);
+  border-top: 4px solid var(--brand-primary);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 48px rgba(37, 37, 33, 0.25);
+}
+
+.help-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--nrc-grey-light);
+}
+
+.help-eyebrow {
+  margin: 0 0 5px;
+  color: var(--brand-primary);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.help-header h1 {
+  margin: 0;
+  color: var(--nrc-black);
+  font-size: 25px;
+  line-height: 1.1;
+}
+
+.help-intro {
+  max-width: 520px;
+  margin: 8px 0 0;
+  color: var(--nrc-grey-dark);
+  font-size: 13px;
+}
+
+.help-close {
+  flex-shrink: 0;
+  padding: 7px 10px;
+  color: var(--nrc-grey-dark);
+  background: transparent;
+  border: 1px solid var(--nrc-grey-light);
+  border-radius: var(--radius);
+  font-family: var(--font-primary);
+  font-size: 12px;
+}
+.help-close:hover {
+  color: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.help-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 20px 0;
+  background: var(--nrc-grey-light);
+  border: 1px solid var(--nrc-grey-light);
+}
+
+.help-card {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 10px;
+  min-height: 112px;
+  padding: 16px;
+  background: var(--brand-surface);
+}
+
+.help-number {
+  color: var(--brand-primary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.help-card h2 {
+  margin: 0 0 6px;
+  color: var(--nrc-black);
+  font-size: 13px;
+}
+
+.help-card p {
+  margin: 0;
+  color: var(--nrc-grey-dark);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.help-return {
+  display: block;
+  margin-inline-start: auto;
+}
+
+[dir="rtl"] .help-panel {
+  text-align: start;
+}
+
+[dir="rtl"] .help-eyebrow {
+  letter-spacing: normal;
+}
+
+[dir="rtl"] .help-intro,
+[dir="rtl"] .help-card p {
+  line-height: 1.8;
+}
+
+/* Stacked group: short caption on top, the actual controls below — costs
+   less horizontal width than putting the caption beside the controls,
+   since the caption no longer needs its own inline slot. */
+.tool-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.tool-group-label-top {
+  font-size: 9px;
+  color: var(--nrc-grey-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* ---------- Color swatch tool buttons (circles + lines) ---------- */
+.swatch-group {
+  display: flex;
+  gap: 3px;
+}
+
+.color-swatch-btn {
+  --swatch-color: #47914a;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius);
+  border: 1px solid var(--nrc-grey-light);
+  background: var(--nrc-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.color-swatch-btn:hover {
+  border-color: var(--swatch-color);
+}
+.color-swatch-btn--active {
+  background: var(--swatch-color);
+  border-color: var(--swatch-color);
+}
+.color-swatch-btn--active .swatch-ring {
+  border-color: var(--nrc-white);
+}
+.color-swatch-btn--active .swatch-line {
+  background: var(--nrc-white);
+}
+
+.swatch-ring {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 3px solid var(--swatch-color);
+  box-sizing: border-box;
+}
+
+.swatch-line {
+  width: 16px;
+  height: 3px;
+  background: var(--swatch-color);
+  border-radius: 2px;
+}
+
+/* ---------- Body layout ---------- */
+.app-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+/* ---------- Icon dock (always visible, icon-only, side-docked) ----------
+   Replaced the old bottom icon-strip, which reserved a fixed height across
+   the full width of the screen — the wrong trade-off on a laptop, where
+   height is the scarce dimension (laptops are wide, not tall). A slim
+   side dock costs a small, fixed slice of the more abundant horizontal
+   space instead, freeing all that height back for the map. */
+.icon-dock {
+  width: 64px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--brand-surface);
+  /* border-inline-end (not border-right) so this divider stays on the
+     side facing the map even in RTL, where flex-direction:row visually
+     mirrors the dock to the opposite edge of the screen */
+  border-inline-end: 1px solid var(--nrc-grey-light);
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.icon-dock-toggle {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: var(--brand-primary);
+  color: var(--nrc-white);
+  border-radius: var(--radius);
+  font-size: 18px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+.icon-dock-toggle:hover {
+  opacity: 0.9;
+}
+
+.icon-dock-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  width: 100%;
+}
+
+.icon-dock-item {
+  width: 44px;
+  height: 44px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: var(--nrc-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.icon-dock-item img {
+  width: 26px;
+  height: 26px;
+}
+.icon-dock-item:hover {
+  border-color: var(--brand-primary);
+}
+.icon-dock-item--active {
+  border-color: var(--brand-primary);
+  background: var(--brand-tint);
+}
+
+/* The Label (place-text) entry — text-based, not an image, so it needs
+   its own font styling. Sits first in the dock list with a divider below
+   it to set it apart from the icon set proper. */
+.icon-dock-item--label {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--nrc-grey-dark);
+  border-bottom: 2px solid var(--nrc-grey-light);
+  border-radius: var(--radius) var(--radius) 0 0;
+  margin-bottom: 4px;
+  padding-bottom: 6px;
+}
+.icon-dock-item--label.icon-dock-item--active {
+  color: var(--brand-primary);
+}
+
+/* ---------- Icon drawer (opened by the dock's toggle, overlays the map) ----------
+   Browsing/picking with full names and categories, same content as the
+   original sidebar design — just tucked away until you actually want it,
+   instead of permanently costing screen space. */
+.icon-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 3000;
+  display: flex;
+}
+
+.icon-drawer {
+  width: 340px;
+  max-width: 85vw;
+  height: 100%;
+  background: var(--brand-surface);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.icon-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.icon-drawer-header span {
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brand-primary);
+}
+.icon-drawer-close {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  color: var(--nrc-grey-dark);
+  padding: 4px 8px;
+}
+.icon-drawer-close:hover {
+  color: var(--brand-primary);
+}
+
+.sidebar-hint {
+  font-size: 12px;
+  color: var(--nrc-grey-dark);
+  margin: 0 0 16px;
+}
+
+.icon-category {
+  margin-bottom: 18px;
+}
+
+.icon-category-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--nrc-grey-dark);
+  margin-bottom: 8px;
+}
+
+.icon-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.icon-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: var(--nrc-white);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 8px 4px;
+  text-align: center;
+}
+.icon-tile img {
+  width: 28px;
+  height: 28px;
+}
+.icon-tile span {
+  font-size: 10px;
+  line-height: 1.2;
+  color: var(--nrc-grey-dark);
+}
+.icon-tile:hover {
+  border-color: var(--brand-primary);
+}
+.icon-tile--active {
+  border-color: var(--brand-primary);
+  background: var(--brand-tint);
+}
+
+/* ---------- Map column: the map area itself ----------
+   Search and the tool status banner used to float on top of the map
+   itself, which meant they got captured in exports and cluttered the
+   editing view. Search now lives in the Toolbar, and StatusBanner is
+   positioned within .map-area (outside .export-frame) — so neither shows
+   up in an exported image no matter what. */
+.map-column {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* .map-area is a centering backdrop — the actual editable, exportable
+   surface is .export-frame, sized by useAspectFit() (App.jsx) to fill as
+   much of this space as possible while keeping the report page's exact
+   proportions (see src/paperSize.js). Width/height are set inline per
+   render rather than in CSS since they depend on the available screen
+   space, not a fixed value. */
+.map-area {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--nrc-grey-light);
+  /* Keep this in sync with the padding argument passed to useAspectFit()
+     in App.jsx — that's the JS side of this same breathing-room value,
+     used to compute how much space is actually available to the frame. */
+  padding: 10px;
+}
+
+.export-frame {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--nrc-white);
+  box-shadow: var(--shadow);
+  overflow: hidden; /* nothing spills past the paper edge, on screen or in export */
+}
+
+/* ---------- Map title banner (the printable header) ----------
+   Height and font-size are set inline (MapTitleBanner.jsx) as a
+   proportion of the frame's actual on-screen size, not a fixed cm/pt
+   value — the frame's pixel size now varies with the screen, so a fixed
+   "1cm" banner would look like a thin sliver on a large monitor. Export
+   itself always renders at the true fixed physical size regardless. */
+.map-title-banner {
+  flex-shrink: 0;
+  background: var(--nrc-white);
+  border-bottom: 2px solid var(--brand-primary);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.map-title-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--nrc-black);
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+.map-title-input:focus {
+  background: var(--brand-surface);
+}
+
+/* Positioning context for everything overlaid on the map itself (status
+   banner, legend, distance box, search box) — scoped to just the map
+   portion of the frame, below the title banner, so none of their
+   top/bottom offsets need to account for the banner's height. */
+.map-body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.map-wrap {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+/* ---------- Icon size (toolbar group, next to Lock map) ---------- */
+.icon-size-control {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  font-size: 12px;
+  user-select: none;
+}
+.icon-size-btn,
+.icon-size-value,
+.icon-size-auto {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: var(--nrc-black);
+  cursor: pointer;
+  border-radius: 5px;
+  height: 24px;
+}
+.icon-size-btn {
+  width: 24px;
+  font-size: 16px;
+  line-height: 1;
+}
+.icon-size-btn:hover:not(:disabled),
+.icon-size-value:hover {
+  background: rgba(0, 0, 0, 0.07);
+}
+.icon-size-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.icon-size-value {
+  min-width: 42px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.icon-size-auto {
+  margin-left: 2px;
+  padding: 0 8px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+}
+.icon-size-auto--on {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: var(--nrc-white);
+}
+
+/* Greyscale toggle: filter the whole tile layer, not the icon overlay */
+.map-wrap--greyscale .leaflet-tile-pane {
+  filter: grayscale(100%) contrast(1.05);
+}
+
+.map-icon-marker img {
+  /* size comes from the Leaflet icon, which follows the map zoom */
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+}
+
+.map-text-label span {
+  background: var(--nrc-white);
+  border: 1px solid var(--nrc-grey-dark);
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-size: calc(12px * var(--label-scale, 1));
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.marker-label {
+  font-family: var(--font-primary) !important;
+  font-size: calc(9px * var(--label-scale, 1)) !important;
+  line-height: 1.15 !important;
+  margin-top: 3px !important;
+  padding: 1px 3px !important;
+  background: rgba(255, 255, 255, 0.68) !important;
+  border: 1px solid rgba(70, 70, 70, 0.48) !important;
+  box-shadow: none !important;
+  white-space: nowrap;
+}
+.leaflet-tooltip-bottom.marker-label::before {
+  border-bottom-color: rgba(255, 255, 255, 0.68) !important;
+}
+
+/* ---------- Status banner (shows the active tool) ---------- */
+.status-banner {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  background: var(--nrc-black);
+  color: var(--nrc-white);
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-primary);
+  flex-shrink: 0;
+  animation: status-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.status-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--nrc-white);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.status-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+.status-btn--primary {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+/* Crosshair cursor whenever a placement tool is active, over the map only */
+.map-wrap--crosshair .leaflet-container {
+  cursor: crosshair;
+}
+
+/* ---------- Marker edit modal ---------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal {
+  background: var(--nrc-white);
+  border-radius: var(--radius);
+  padding: 20px;
+  width: 340px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.modal-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.modal-field {
+  display: block;
+  margin-bottom: 12px;
+}
+.modal-field span {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--nrc-grey-dark);
+}
+.modal-field input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--nrc-grey-light);
+  border-radius: 4px;
+  font-family: var(--font-primary);
+  font-size: 13px;
+}
+.modal-field input:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+}
+.modal-field small {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--nrc-grey-mid);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+.modal-actions-right {
+  display: flex;
+  gap: 8px;
+}
+
+/* ---------- Distance list (MP / SM distance panel) ----------
+   Bottom-left, opposite corner from the legend (top-right). No height cap
+   or scroll bar: it grows upwards, and when the map runs out of height the
+   rows flow into another column (useOverlayColumns.js), so every row is
+   visible on screen and in the downloaded PNG. */
+.distance-list {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 1000;
+  background: var(--nrc-white);
+  border: 1px dashed var(--brand-primary);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  min-width: 15%;
+  max-width: calc(100% - 20px);
+  padding: 5px 7px;
+}
+.distance-grid {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 14px;
+}
+.distance-list-title {
+  font-size: 0.9em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--nrc-grey-dark);
+  margin: 4px 0 1px;
+}
+.distance-list-title:first-child {
+  margin-top: 0;
+}
+.distance-row {
+  display: flex;
+  gap: 5px;
+  padding: 1px 0;
+  cursor: pointer;
+}
+.distance-row:hover {
+  color: var(--brand-primary);
+}
+.distance-code {
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.distance-text {
+  color: var(--nrc-grey-dark);
+}
+.distance-text--empty {
+  color: var(--nrc-grey-mid);
+  font-style: italic;
+}
+.distance-row {
+  white-space: nowrap;
+}
+.distance-row:hover .distance-text {
+  color: inherit;
+}
+
+/* ---------- Resizable circle: drag handle + popup ---------- */
+.circle-resize-handle {
+  width: 12px;
+  height: 12px;
+  background: var(--nrc-white);
+  border: 2px solid var(--nrc-black);
+  border-radius: 2px;
+  cursor: ew-resize;
+}
+
+.circle-popup .leaflet-popup-content-wrapper {
+  border-radius: var(--radius);
+  padding: 4px;
+}
+.circle-popup .leaflet-popup-content {
+  margin: 8px;
+}
+
+.circle-popup-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+.circle-popup-row {
+  display: flex;
+  gap: 6px;
+}
+.circle-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  padding: 0;
+}
+.circle-swatch--active {
+  border-color: var(--nrc-black);
+}
+.circle-popup-hint {
+  font-size: 11px;
+  color: var(--nrc-grey-mid);
+}
+
+/* ---------- Location search box ----------
+   Lives inside the Toolbar now (outside the printable frame entirely),
+   not floating over the map. position:relative here is just so
+   .search-results (the dropdown) still anchors correctly below it. */
+.search-box {
+  position: relative;
+  z-index: 1000;
+  width: 190px;
+  flex-shrink: 0;
+}
+
+.search-box-row {
+  display: flex;
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.search-box-row input {
+  flex: 1;
+  border: none;
+  padding: 7px 10px;
+  font-family: var(--font-primary);
+  font-size: 12px;
+  outline: none;
+  width: 0; /* let flex:1 govern width instead of the input's intrinsic size, so it can shrink below its default */
+}
+
+.search-box-row button {
+  background: var(--brand-primary);
+  color: var(--nrc-white);
+  border: none;
+  padding: 0 12px;
+  font-size: 15px;
+}
+.search-box-row button:disabled {
+  opacity: 0.7;
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 4px;
+  background: var(--nrc-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  max-height: 220px;
+  overflow-y: auto;
+}
+.search-results li {
+  padding: 8px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.search-results li:hover {
+  background: var(--brand-surface);
+}
+
+/* ---------- Modal swatch row (functionality circle attach) ---------- */
+.modal-swatch-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---------- Language switcher ---------- */
+.language-switcher {
+  /* kept narrow so the toolbar fits on one line on 1280 px laptop screens */
+  max-width: 112px;
+  background: var(--nrc-white);
+  border: 1px solid var(--nrc-grey-light);
+  border-radius: var(--radius);
+  padding: 6px 8px;
+  font-family: var(--font-primary);
+  font-size: 12px;
+  color: var(--nrc-black);
+}
+
+/* ---------- Line delete popup ---------- */
+.line-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 150px;
+}
+.line-popup-info {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 13px;
+}
+.line-popup-km {
+  font-weight: 700;
+  color: var(--brand-primary);
+}
+.line-popup-muted {
+  color: var(--nrc-grey-mid);
+}
+.line-popup-hint {
+  font-size: 11px;
+  color: var(--nrc-grey-mid);
+  max-width: 200px;
+  line-height: 1.35;
+}
+
+/* ---------- Drawing aids (supply line and Measure), Google Maps style ----------
+   None of these appear in the downloaded PNG (see export.js filter). */
+.draw-cursor-label {
+  background: transparent;
+  border: none;
+}
+.draw-cursor-label .draw-cursor-km {
+  display: inline-block;
+  background: #fff;
+  color: #1d1d1b;
+  font: 700 12px/1 var(--font-primary);
+  padding: 5px 8px;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+}
+.draw-cursor-label .draw-cursor-snap {
+  display: inline-block;
+  margin-left: 4px;
+  background: #1d1d1b;
+  color: #fff;
+  font: 700 11px/1 var(--font-primary);
+  padding: 5px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.line-vertex-handle {
+  background: #fff;
+  border: 2px solid #1d1d1b;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  cursor: grab;
+}
+.line-vertex-handle--end {
+  border-color: var(--brand-primary);
+}
+.tool-btn--measure {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------- Supply links checklist (marketplace / source market form) ---------- */
+.link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 180px;
+  overflow-y: auto;
+  padding: 2px 0;
+}
+.link-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  align-items: center;
+  column-gap: 8px;
+}
+.link-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.link-code {
+  font-weight: 700;
+}
+.link-km {
+  min-width: 0;
+}
+.link-km:disabled {
+  background: var(--nrc-grey-light);
+  color: var(--nrc-grey-mid);
+}
+.link-tag {
+  grid-column: 2;
+  font-size: 11px;
+  color: var(--nrc-grey-mid);
+}
+
+/* ---------- Text label edit/delete popup ---------- */
+.text-label-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 160px;
+}
+.text-label-popup-input {
+  padding: 6px 8px;
+  border: 1px solid var(--nrc-grey-light);
+  border-radius: 4px;
+  font-family: var(--font-primary);
+  font-size: 13px;
+}
+.text-label-popup-input:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+}
+.text-label-popup-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* ---------- RTL / Arabic support ----------
+   Map overlays (status banner, legend, distance list) keep fixed screen
+   corners regardless of language — that matches how map controls
+   conventionally behave (Google Maps' zoom controls don't swap sides for
+   RTL either). Everything else (toolbar, icon dock, modal, search box —
+   which now lives in the Toolbar) mirrors automatically because flexbox's
+   "row" axis follows the `dir` attribute set on the app root in
+   LanguageContext.jsx. */
+[lang="ar"] {
+  font-family: "Noto Sans Arabic", var(--font-primary);
+}
+
+/* OpenStreetMap/CARTO credit. Required by the map data licences on the
+   live map AND on exported images, so export.js keeps it in the PNG.
+   Small and quiet so it does not compete with the map content. */
+.leaflet-control-attribution {
+  font-size: 10px;
+  opacity: 0.75;
+}
+
+/* ---------- Legend ---------- */
+.legend {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  background: var(--nrc-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  min-width: 15%;
+  max-width: calc(100% - 20px);
+}
+/* Rows fill downwards, then continue in a new column when the map runs
+   out of height (useOverlayColumns.js). */
+.legend-grid {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 0;
+}
+.legend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 2px 5px;
+  border-top: 1px solid var(--nrc-grey-light);
+  white-space: nowrap;
+}
+.legend-symbol {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+}
+.legend-title {
+  background: var(--brand-surface);
+  font-weight: 700;
+  text-align: center;
+  padding: 3px 6px;
+}
+.legend-icon {
+  width: 1.4em;
+  height: 1.4em;
+}
+.legend-dot {
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  border: 2px solid;
+  border-radius: 50%;
+  margin-left: 3px;
+}
+.legend-line {
+  display: inline-block;
+  width: 2.2em;
+  height: 2px;
+  background: var(--nrc-green);
+}
+
+@media (max-width: 700px) {
+  .help-backdrop {
+    padding: 10px;
+  }
+  .help-panel {
+    padding: 20px 16px 18px;
+  }
+  .help-header {
+    gap: 12px;
+  }
+  .help-header h1 {
+    font-size: 21px;
+  }
+  .help-grid {
+    grid-template-columns: 1fr;
+  }
+  .help-card {
+    min-height: 0;
+    padding: 13px;
+  }
+  .help-close {
+    font-size: 11px;
+  }
+}
+
+/* ---------- Icon-only toolbar button (Home) ---------- */
+.tool-btn--icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+}
+
+/* ==========================================================================
+   Landing page
+   The first screen: what the tool is, the edition choice (NRC or wider
+   humanitarian), the project credit, and the EU funding acknowledgement
+   with the standard DG ECHO disclaimer. Laid out in two columns on laptop
+   and wider screens so the edition choice is visible without scrolling.
+   ========================================================================== */
+.landing {
+  height: 100%;
+  overflow-y: auto;
+  background: var(--nrc-white);
+  color: #1d1d1b;
+}
+
+.landing-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 40px;
+  border-bottom: 1px solid #ecebe6;
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+}
+.landing-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 10px;
+  /* Clear space between the NRC logo and the EU emblem (EU rules ask for
+     the emblem to sit at a distance from other logos). */
+  column-gap: 40px;
+  min-width: 0;
+}
+.landing-logo {
+  /* Same height as the EU flag: the emblem must be at least as big as the
+     biggest other logo, and at least 1 cm high. */
+  height: 40px;
+  width: auto;
+  display: block;
+}
+.landing-org-name {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  color: var(--nrc-black);
+  white-space: nowrap;
+}
+
+/* EU emblem: the official artwork, linked to DG ECHO's website. Never
+   underline it or add effects. The fallback text uses Arial, one of the
+   typefaces the EU visual identity rules allow. */
+.eu-emblem {
+  display: inline-flex;
+  flex-shrink: 0;
+  text-decoration: none;
+  align-items: center;
+  gap: 10px;
+}
+.eu-emblem-text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(var(--eu-h) * 0.36);
+  line-height: 1.15;
+  color: #000;
+  white-space: pre-line; /* the official emblem breaks after "Funded by" */
+}
+.eu-emblem-text--dark {
+  color: #fff;
+}
+.eu-emblem-img {
+  display: block;
+  height: calc(var(--eu-h) / var(--eu-share, 0.936));
+  width: auto;
+}
+.eu-emblem:focus-visible {
+  outline: 2px solid var(--nrc-black, #000);
+  outline-offset: 2px;
+}
+
+.landing-main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 36px 40px 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  column-gap: 56px;
+  row-gap: 40px;
+}
+
+.landing-hero h1 {
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: var(--nrc-black);
+  letter-spacing: -0.01em;
+}
+.landing-subtitle {
+  font-family: var(--font-secondary);
+  font-size: 16.5px;
+  line-height: 1.55;
+  color: #3b3b38;
+  margin: 0 0 26px;
+}
+.landing-h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--nrc-black);
+}
+.landing-features {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.landing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+.landing-feature-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.landing-feature-icon circle {
+  fill: var(--nrc-orange);
+}
+.landing-feature-icon path {
+  stroke: #fff;
+}
+.landing-languages {
+  font-size: 13px;
+  color: #6b6a64;
+  margin: 0;
+}
+
+.landing-hint {
+  font-size: 14px;
+  color: #55544f;
+  margin: -4px 0 16px;
+  line-height: 1.5;
+}
+.edition-grid {
+  display: grid;
+  gap: 14px;
+}
+.edition-card {
+  --card-color: var(--nrc-orange);
+  --card-tint: #fff2ea;
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  border: 1px solid #e6e4dc;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.edition-card:hover {
+  border-color: var(--card-color);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+  transform: translateY(-1px);
+}
+.edition-card--humanitarian {
+  --card-color: #009edb;
+  --card-tint: #e5f5fc;
+}
+.edition-card-preview {
+  background: var(--card-tint);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-items: center;
+  gap: 8px;
+  padding: 14px;
+}
+.edition-card-preview img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+.edition-card-body {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.edition-card-body h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+.edition-card-body p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #4a4944;
+}
+.edition-card-cta {
+  align-self: flex-start;
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.edition-card-cta:hover {
+  filter: brightness(0.94);
+}
+.edition-card-arrow {
+  transition: transform 0.15s ease;
+}
+.edition-card-cta:hover .edition-card-arrow {
+  transform: translateX(3px);
+}
+[dir="rtl"] .edition-card-arrow {
+  transform: scaleX(-1);
+}
+
+.landing-about {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  column-gap: 56px;
+  row-gap: 24px;
+  padding-top: 28px;
+  border-top: 1px solid #ecebe6;
+}
+.landing-about-text p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #3b3b38;
+  margin: 0 0 10px;
+}
+.landing-about a,
+.landing-footer a {
+  color: #c24500;
+  font-weight: 500;
+}
+/* Project link and DG ECHO link, side by side. */
+.landing-about-text .landing-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 24px;
+}
+.landing-funding {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.landing-disclaimer {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #55544f;
+  margin: 0;
+}
+
+.landing-footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 12px 40px 32px;
+  font-size: 12px;
+  color: #7a7973;
+  line-height: 1.5;
+}
+.landing-footer p {
+  margin: 0 0 4px;
+}
+
+@media (max-width: 900px) {
+  .landing-header {
+    padding: 12px 12px;
+    flex-wrap: wrap;
+  }
+  /* Phones: keep both logos on one line at the EU 1 cm minimum (38 px). */
+  .landing-logos {
+    column-gap: 16px;
+  }
+  .landing-logo {
+    height: 38px;
+  }
+  .landing-header .eu-emblem {
+    --eu-h: 38px !important;
+  }
+  .landing-main,
+  .landing-about {
+    grid-template-columns: 1fr;
+  }
+  .landing-main {
+    padding: 24px 16px;
+  }
+  .landing-footer {
+    padding: 8px 16px 24px;
+  }
+  .landing-hero h1 {
+    font-size: 26px;
+  }
+  .edition-card {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+}
+
+/* ---------- Legal: terms of use and privacy ---------- */
+.edition-root {
+  height: 100%;
+}
+
+.editor-footnote {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 5px 16px;
+  font-size: 11.5px;
+  color: #55544f;
+  background: var(--brand-surface);
+  border-top: 1px solid var(--nrc-grey-light);
+}
+.editor-footnote-note {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.editor-footnote-links,
+.landing-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.editor-footnote-links button,
+.landing-legal-links button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.editor-footnote-links button:hover,
+.landing-legal-links button:hover {
+  color: var(--brand-primary);
+}
+
+.landing-safety {
+  font-weight: 500;
+  color: #3b3a36;
+}
+.landing-legal-links {
+  flex-wrap: wrap;
+  margin: 8px 0 10px;
+  color: #3b3a36;
+}
+
+.legal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(20, 20, 18, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+.legal-dialog {
+  background: #fff;
+  width: min(680px, 100%);
+  max-height: min(82vh, 760px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.legal-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 12px 16px 0 24px;
+  border-bottom: 1px solid #ecebe6;
+}
+.legal-tabs {
+  display: flex;
+  gap: 24px;
+}
+.legal-tab {
+  background: none;
+  border: none;
+  padding: 10px 0 12px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6f6e68;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+}
+.legal-tab--active {
+  color: #1c1c1a;
+  border-bottom-color: var(--brand-primary);
+}
+.legal-close {
+  align-self: center;
+  background: none;
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  color: #55544f;
+  cursor: pointer;
+  display: flex;
+}
+.legal-close:hover {
+  background: var(--brand-tint);
+}
+.legal-body {
+  overflow-y: auto;
+  padding: 20px 24px 24px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #2b2b28;
+}
+.legal-body h2 {
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+.legal-intro {
+  margin: 0 0 18px;
+  color: #3b3a36;
+}
+.legal-body h3 {
+  font-size: 14.5px;
+  margin: 18px 0 4px;
+}
+.legal-body p {
+  margin: 0;
+}
+.legal-body a {
+  color: var(--brand-primary);
+  font-weight: 500;
+}
+[data-edition="nrc"] .legal-body a,
+.landing ~ .legal-backdrop .legal-body a {
+  color: #c24500;
+}
+.legal-updated {
+  margin-top: 22px !important;
+  font-size: 12px;
+  color: #7a7973;
+}
