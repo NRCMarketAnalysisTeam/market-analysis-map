@@ -5,7 +5,7 @@
 
 A free web tool for drawing the two maps that go into a Type 1 market analysis report: the marketplace map and the supply route map. It replaces the old PowerPoint map template.
 
-Live site: https://marketanalysismap.com
+Live site: https://https://nrcmarketanalysisteam.github.io/market-analysis-map/
 
 Built by the Market Analysis team in the global supply chain section at the Norwegian Refugee Council (NRC) head office, under the Transforming Supply Chain Planning: Market Analysis project.
 
